@@ -1,0 +1,2 @@
+﻿using Microsoft.AspNetCore.Http;namespace weblog.CoreLayer.Services.IFileManager;public interface IFileManager{
+    string saveFile(IFormFile file, string savePath);    void DeleteFile(string fileName, string path);}

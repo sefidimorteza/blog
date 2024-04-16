@@ -1,0 +1,20 @@
+﻿@{
+    var active = ViewData["active"]?.ToString()?.ToLower();
+}
+
+<aside class="main-sidebar h-auto">
+    <section class="sidebar">
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class=" @(active=="index"?"active treeview" : null)">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-dashboard"></i> <span>داشبرد</span>
+                </a>
+            </li>
+            <li class="@(active=="category"?"active treeview" : null)">
+                <a asp-area="Admin" asp-controller="Category" asp-action="Index">
+                    <i class="fa fa-th"></i> <span>دسته بندی ها</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+</aside>
