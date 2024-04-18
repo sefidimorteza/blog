@@ -1,0 +1,1 @@
+﻿namespace weblog.CoreLayer.DTOs.Comments;public class CommendDto{    public int Id { get; set; }    public string UserFullName { get; set; }    public int PostId { get; set; }    public string Text { get; set; }    public DateTime CreationDateTime{ get; set; }}

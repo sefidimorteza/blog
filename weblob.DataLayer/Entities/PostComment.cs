@@ -10,6 +10,7 @@ namespace weblog.DataLayer.Entities
 {
     public class PostComment : BaseEntity
     {
+        public int UserId { get; set; }
         public int PostId { get; set; }
         [Required]
         public string Text { get; set; }

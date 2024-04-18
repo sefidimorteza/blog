@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using weblog.CoreLayer.Services.Categories;
+using weblog.CoreLayer.Services.Comments;
 using weblog.CoreLayer.Services.IFileManager;
 using weblog.CoreLayer.Services.Posts;
 using weblog.CoreLayer.Services.User;
@@ -25,6 +26,8 @@ namespace Myblog
             builder.Services.AddScoped<ICategoryService, categoryServie>();
             builder.Services.AddScoped<IFileManager, FileManager>();
             builder.Services.AddTransient<IPostService, PostService>();
+            builder.Services.AddTransient<ICommentService, CommentService>();
+
             builder.Services.AddDbContext<BlogContext>(Options =>
                 Options.UseSqlServer(builder.Configuration
                     .GetConnectionString("Default")));
