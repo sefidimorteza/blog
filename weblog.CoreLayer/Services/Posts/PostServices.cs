@@ -129,5 +129,12 @@ namespace weblog.CoreLayer.Services.Posts
                 .Take(6)
                 .Select(post => PostMapper.MapToDto(post)).ToList();
         }
+
+        public void IncreaseVisit(int postId)
+        {
+            var post = _context.Posts.First(c=>c.Id==postId);
+            post.Visit += 1;
+            _context.SaveChanges();
+        }
     }
 }

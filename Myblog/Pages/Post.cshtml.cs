@@ -34,6 +34,8 @@ namespace Myblog.Pages
 
             RelatedPost = _postService.GetRelatedPosts(Post.SubCategoryId ?? Post.CategoryId);
             Comments = _commentService.GetPostComment(Post.PostId);
+            //visit
+            _postService.IncreaseVisit(Post.PostId);
 
             return Page();
         }
@@ -50,6 +52,8 @@ namespace Myblog.Pages
                 Post = _postService.GetPostBySlug(slug);
                 RelatedPost = _postService.GetRelatedPosts(Post.SubCategoryId ?? Post.CategoryId);
                 Comments = _commentService.GetPostComment(Post.PostId);
+                //visit
+                _postService.IncreaseVisit(Post.PostId);
                 return Page();
             }
             _commentService.CreateComment(new CreateCommentDto()
