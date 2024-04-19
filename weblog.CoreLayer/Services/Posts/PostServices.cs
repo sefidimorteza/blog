@@ -111,5 +111,23 @@ namespace weblog.CoreLayer.Services.Posts
         {
             return _context.Posts.Any(p => p.Slug == slug.ToSlug());
         }
+
+        public List<PostDto> GetRelatedPosts(int CategoryId)
+        {
+            return _context.Posts
+                .Where(r => r.CategoryId == CategoryId || r.SubCategoryId == CategoryId)
+                .OrderByDescending(d => d.CreationDate)
+                .Take(6)
+                .Select(post => PostMapper.MapToDto(post)).ToList();
+        }
+
+        public List<PostDto> GetPopularPosts()
+        {
+            return _context.Posts
+                .Include(c => c.User)
+                .OrderByDescending(d => d.Visit)
+                .Take(6)
+                .Select(post => PostMapper.MapToDto(post)).ToList();
+        }
     }
 }
