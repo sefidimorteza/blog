@@ -1,0 +1,69 @@
+﻿@page "{handler?}"
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using weblog.CoreLayer.DTOs.Category
+@using weblog.CoreLayer.Services.Categories
+@using weblog.CoreLayer.Utilities
+@model Myblog.Pages.SearchModel
+@inject ICategoryService _categoryService;
+@{
+    CategoryDto category = null;
+    var search = "";
+    if (!string.IsNullOrWhiteSpace(Model.Filter.FilterParams.CategorySlug))
+    {
+        category = _categoryService.GetCategoryBy(Model.Filter.FilterParams.CategorySlug);
+        if (category != null)
+        {
+            search = category.Title;
+        }
+    }
+    else
+    {
+        search = Model.Filter.FilterParams.Title ?? "مقالات سایت";
+    }
+    ViewData["Title"] = search;
+}
+<div class="main-container container pt-40" id="main-container">
+    <div class="row">
+        <div class="col-lg-8 blog__content mb-72">
+            @if (search != null)
+            {
+                <h1 class="page-title">نتایج جستجو برای: @search</h1>
+            }
+            <div id="search">
+
+            <partial name="Shared/_SearchView" model="Model.Filter" />
+            </div>
+        </div>
+        @* منو گوشه  *@
+        <aside class="col-lg-4 sidebar sidebar--right" id="popular_posts">
+        </aside>
+    </div>
+</div>
+@section Script{
+    <script>
+        function pagination(pageId) {
+            const params=new URLSearchParams(window.location.search)
+            var categorySlug='';
+            var q = '';
+            if (params.has('categorySlug')) {
+                categorySlug = params.get('categorySlug')
+            }
+            if (params.has('q')) {
+                q = params.get('q')
+            }
+            $.ajax({
+                url: `/search/pagination?pageId=${pageId}&categorySlug=${categorySlug}&q=${q}`
+                type:"get" ,
+                beforeSend: function () {
+                    $(".loading").show()
+                },
+                complete:function(){
+                    $("loading").hide()
+                }
+            }).done(function(data){
+                $("#search").html(data)
+            })
+        }
+    </script>
+}
