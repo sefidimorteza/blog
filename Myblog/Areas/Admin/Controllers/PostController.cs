@@ -19,7 +19,7 @@ public class PostController : Controller
         {
             CategorySlug = categorySlug,
             PageId = pageId,
-            Take = 1,
+            Take = 5,
             Title = title
         };
         var model = _postService.GetPostsByFilter(param);
@@ -47,7 +47,8 @@ public class PostController : Controller
             Slug = createViewModel.Slug,
             SubCategoryId = createViewModel.SubCategoryId == 0 ? null : createViewModel.SubCategoryId,
             Title = createViewModel.Title,
-            UserId = User.GetUserId()
+            UserId = User.GetUserId(),
+            IsSpecial = createViewModel.IsSpecial
         });
 
         if (result.Status != OperationResultStatus.Success)
@@ -69,7 +70,8 @@ public class PostController : Controller
             Description = post.Description,
             Slug = post.Slug,
             SubCategoryId = post.SubCategoryId,
-            Title = post.Title
+            Title = post.Title,
+            IsSpecial = post.IsSpecial
         };
         return View(model);
     }
@@ -91,7 +93,8 @@ public class PostController : Controller
             Slug = editViewModel.Slug,
             SubCategoryId = editViewModel.SubCategoryId == 0 ? null : editViewModel.SubCategoryId,
             Title = editViewModel.Title,
-            PostId = id
+            PostId = id,
+            IsSpecial = editViewModel.IsSpecial
         });
         if (result.Status != OperationResultStatus.Success)
         {

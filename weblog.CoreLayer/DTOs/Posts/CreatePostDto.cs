@@ -11,4 +11,5 @@ public class CreatePostDto
     public string Slug { get; set; }
     public string Description { get; set; }
     public IFormFile ImageFile { get; set; }
+    public bool IsSpecial { get; set; }
 }

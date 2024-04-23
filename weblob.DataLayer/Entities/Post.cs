@@ -23,8 +23,7 @@ namespace weblog.DataLayer.Entities
         public string Description { get; set; }
         public string ImageName { get; set; }
         public int Visit { get; set; }
-
-
+        public bool IsSpecial { get; set; }
         #region Relations
 
         [ForeignKey("UserId")]
